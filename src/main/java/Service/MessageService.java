@@ -10,6 +10,9 @@ public class MessageService {
     }
 
     public Message createMessage(Message message) {
+        if (message == null || message.getMessage_text() == null || message.getMessage_text().trim().isEmpty() || message.getMessage_text().length() > 255 || message.getPosted_by() <= 0) {
+            return null;
+        }
         return messageDAO.insertMessage(message);
     }
     public Message deleteMessageById(int messageId) {

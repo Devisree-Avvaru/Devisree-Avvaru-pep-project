@@ -60,17 +60,7 @@ public class SocialMediaController {
     private void createMessageHandler(Context context) {
         try {
             Message message = context.bodyAsClass(Message.class);
-    
-            // Validations
-            if (message.getMessage_text() == null ||
-                message.getMessage_text().trim().isEmpty() ||
-                message.getMessage_text().length() > 255 ||
-                !userIds.contains(message.getPosted_by())) {
-                context.status(400);
-                return;
-            }
-    
-            // Persist message via service
+            
             Message savedMessage = messageService.createMessage(message);
             if (savedMessage != null) {
                 context.status(200).json(savedMessage);
